@@ -1,3 +1,7 @@
+const ComError = require('../exception/index')
+const {
+  REQUEST_PARAMS_ERROR_CODE,
+} = require("../exception/errorCode");
 const {
   userRegister,
   userLogin
@@ -24,6 +28,9 @@ async function userRegisterApi(event, req, res) {
 
 async function userLoginApi(event, req, res) {
   const { username, password } = event
+  if (!username || !password) {
+    throw new ComError(REQUEST_PARAMS_ERROR_CODE, "参数错误");
+  }
   return await userLogin(username, password, req)
 }
 

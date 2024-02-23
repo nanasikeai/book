@@ -1,3 +1,8 @@
+const UserModel = require("../model/user");
+const {
+  NOT_FOUND_ERROR_CODE,
+} = require("../exception/errorCode");
+
 /**
  * 用户注册
  * @param username
@@ -7,10 +12,7 @@
  */
 
 async function userRegister(username, password, req) {
-  console.log('用户登录', username, password)
-  return new Promise((resolve, reject) => {
-    resolve('登录成功')
-  })
+  console.log('用户注册')
 }
 
 /**
@@ -22,10 +24,19 @@ async function userRegister(username, password, req) {
  */
 
 async function userLogin(username, password, req) {
-  console.log('用户登录', username, password)
-  return new Promise((resolve, reject) => {
-    resolve('登录成功')
-  })
+  // 用户是否已存在
+  let user = await UserModel.findOne({
+    where: {
+      username,
+      password,
+    },
+  });
+  if (!user) {
+    throw new MyError(NOT_FOUND_ERROR_CODE, "用户不存在或密码错误");
+  }
+  // 登录成功
+  req.session.userInfo = user;
+  return user;
 }
 
 module.exports = {

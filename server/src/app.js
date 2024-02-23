@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const routes = require('./routes')
+const ComError = require('./exception/index')
 
 const app = express();
 // 用于获取body参数
@@ -37,8 +38,22 @@ const setRoute = (path, handlerFunction) => {
     const event = req.body;
     try {
       result = await handlerFunction(event, req, res)
-    } catch (error) {
-      console.log(error)
+    } catch (e) {
+      console.log('e', e)
+      // 全局异常处理
+      if (e instanceof ComError) {
+        result = {
+          code: e.code,
+          message: e.message,
+          data: null,
+        };
+      } else {
+        result = {
+          code: 500,
+          data: null,
+          message: "server error",
+        };
+      }
     }
     res.send(result);
   }
