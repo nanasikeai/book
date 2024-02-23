@@ -2,6 +2,7 @@ const UserModel = require("../model/user");
 const {
   NOT_FOUND_ERROR_CODE,
 } = require("../exception/errorCode");
+const ComError = require('../exception/index')
 
 /**
  * 用户注册
@@ -32,7 +33,7 @@ async function userLogin(username, password, req) {
     },
   });
   if (!user) {
-    throw new MyError(NOT_FOUND_ERROR_CODE, "用户不存在或密码错误");
+    throw new ComError(NOT_FOUND_ERROR_CODE, "用户不存在或密码错误");
   }
   // 登录成功
   req.session.userInfo = user;

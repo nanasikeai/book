@@ -15,10 +15,6 @@ const UserModel = sequelize.define('user', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  status: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
   createTime: {
     type: DataTypes.DATE,
   },
@@ -28,6 +24,9 @@ const UserModel = sequelize.define('user', {
   avatar: {
     type: DataTypes.STRING,
   }
+}, {
+  tableName: 'user',
+  timestamps: false
 })
 
 module.exports = UserModel;
