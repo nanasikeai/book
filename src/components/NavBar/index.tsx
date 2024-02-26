@@ -16,7 +16,7 @@ const NavBar = () => {
 
   return (
     <Tabbar onChange={p => setPath(p as string)}>
-      <Tabbar.Item name='' icon={<OrdersO />}>
+      <Tabbar.Item name='home' icon={<OrdersO />}>
         账单
       </Tabbar.Item>
       <Tabbar.Item name='Statistics' icon={<BarChartO />}>

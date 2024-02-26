@@ -11,9 +11,11 @@
     "@react-vant/icons": "^0.0.6",
     "axios": "^1.6.7",
     "react": "latest",
+    "react-captcha-code": "^1.0.7",
     "react-dom": "latest",
     "react-router-dom": "^6.22.1",
-    "react-vant": "latest"
+    "react-vant": "latest",
+    "sass": "^1.71.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.20",
