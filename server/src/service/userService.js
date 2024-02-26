@@ -36,7 +36,6 @@ async function userLogin(username, password, req) {
     throw new ComError(NOT_FOUND_ERROR_CODE, "用户不存在或密码错误");
   }
   // 登录成功
-  req.session.userInfo = user;
   return user;
 }
 

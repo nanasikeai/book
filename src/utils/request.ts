@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Notify } from "react-vant";
 
 // 创建axios实例
 const request = axios.create({
@@ -24,15 +25,32 @@ request.interceptors.request.use(
 
 // 添加响应拦截器
 request.interceptors.response.use(
-  function (response) {
-    console.log(response);
-    // 对响应数据做点什么
-    return response.data;
+  (response) => {
+    return response.data
   },
-  function (error) {
-    // 对响应错误做点什么
-    return Promise.reject(error);
-  }
+  (error) => {
+    // 失败回调，处理http网络错误
+    let message = ''
+    const status = error.response.status
+    switch (status) {
+      case 401:
+        message = 'token过期'
+        break
+      case 403:
+        message = '无权访问'
+        break
+      case 404:
+        message = '请求地址错误'
+        break
+      case 500:
+        message = '服务器错误'
+        break
+      default:
+        message = '网络出现问题'
+    }
+    Notify.show(message)
+    return Promise.reject(error)
+  },
 );
 
 export default request

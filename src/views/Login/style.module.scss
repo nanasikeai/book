@@ -14,10 +14,10 @@
     > span {
       margin-right: 10px;
       font-weight: bold;
-      &.avtive {
+      &.active {
         border-bottom: 2PX solid #597fe7;
         padding-bottom: 6px;
-        transform: scale(2);
+        font-size: 40px;
       }
     }
   }
@@ -36,6 +36,14 @@
           display: flex;
         }
       }
+    }
+  }
+
+  .operation {
+    padding: 40px;
+
+    .agree {
+      margin-bottom: 20px;
     }
   }
 }

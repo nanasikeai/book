@@ -6,7 +6,7 @@ module.exports = {
   dbConfig: {
     database: "book",
     username: "root",
-    password: "yyh123456..",
+    password: "123456",
     host: "localhost",
     port: 3306,
   },
