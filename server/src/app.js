@@ -35,7 +35,7 @@ app.all('*', (req, res, next) => {
 // 解析jwt
 app.use(
   expressjwt({ secret: 'nana', algorithms: ["HS256"] }).unless({
-    path: ['/login'],
+    path: ['/user/login'],
   })
 );
 

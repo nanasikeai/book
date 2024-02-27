@@ -42,7 +42,8 @@ request.interceptors.response.use(
     const status = error.response.status
     switch (status) {
       case 401:
-        message = 'token过期'
+        message = '无效token'
+        window.location.href = '/login'
         break
       case 403:
         message = '无权访问'
