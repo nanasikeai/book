@@ -35,7 +35,7 @@ app.all('*', (req, res, next) => {
 // 解析jwt
 app.use(
   expressjwt({ secret: 'nana', algorithms: ["HS256"] }).unless({
-    path: ['/user/login'],
+    path: ['/user/login', '/user/register'],
   })
 );
 
@@ -74,14 +74,12 @@ const setRoute = (path, handlerFunction) => {
           message: e.message,
           data: null,
         };
-        res.status(e.code)
       } else {
         result = {
           code: 500,
           data: null,
           message: "server error",
         };
-        res.status(500)
       }
     }
     res.send(result);

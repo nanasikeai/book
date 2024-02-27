@@ -47,7 +47,9 @@ const Login = () => {
         Notify.show('验证码错误')
         return
       }
-      const { data } = await reqRegister(formData)
+      await reqRegister(formData)
+      Notify.show({ type: 'success', message: '注册成功' })
+      setType('login')
     } else {
       // 登录
       const { data } = await reqLogin(formData)

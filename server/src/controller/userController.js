@@ -16,6 +16,9 @@ const {
 
 async function userRegisterApi(event, req, res) {
   const { username, password } = event
+  if (!username || !password) {
+    throw new ComError(REQUEST_PARAMS_ERROR_CODE, "参数错误");
+  }
   return await userRegister(username, password, req)
 }
 

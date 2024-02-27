@@ -1,9 +1,11 @@
 const UserModel = require("../model/user");
 const {
   NOT_FOUND_ERROR_CODE,
+  REQUEST_PARAMS_ERROR_CODE
 } = require("../exception/errorCode");
 const ComError = require('../exception/index')
 const jwt = require("jsonwebtoken");
+const { Op } = require("sequelize");
 
 /**
  * 用户注册
@@ -14,7 +16,21 @@ const jwt = require("jsonwebtoken");
  */
 
 async function userRegister(username, password, req) {
-  console.log('用户注册')
+  // 用户是否已存在
+  let user = await UserModel.findOne({
+    where: {
+      [Op.or]: [{ username }],
+    },
+  });
+  if (user) {
+    throw new ComError(REQUEST_PARAMS_ERROR_CODE, "该用户名已被注册");
+  }
+  // 插入新用户
+  user = await UserModel.create({
+    username,
+    password,
+  });
+  return user.id;
 }
 
 /**
