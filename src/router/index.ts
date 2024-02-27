@@ -4,7 +4,7 @@ import Person from '@/views/Person'
 import Login from '@/views/Login'
 
 const routes = [
-  { path: '/home', component: Home },
+  { path: '/', component: Home },
   { path: '/statistics', component: Statistics },
   { path: '/user', component: Person },
   { path: '/login', component: Login }

@@ -1,16 +1,17 @@
 const express = require('express')
-const cors = require('cors')
 const routes = require('./routes')
+const cors = require('cors')  
 const ComError = require('./exception/index')
+const { expressjwt } = require('express-jwt')
 
 const app = express();
+
 // 用于获取body参数
 app.use(express.json())
+
 // 设置跨域
-app.use(cors());
-// 复杂请求仍然需要设置跨域
+app.use(cors())
 app.all('*', (req, res, next) => {
-  // 开启跨域
   res.setHeader("Access-Control-Allow-Credentials", "true");
   const origin = req.get("Origin");
   if (origin) {
@@ -31,6 +32,28 @@ app.all('*', (req, res, next) => {
   next();
 })
 
+// 解析jwt
+app.use(
+  expressjwt({ secret: 'nana', algorithms: ["HS256"] }).unless({
+    path: ['/login'],
+  })
+);
+
+app.use((err, req, res, next) => {
+  // 这次错误是由 token 解析失败导致的
+  if (err.name === "UnauthorizedError") {
+    res.status(401);
+    return res.send({
+      code: 401,
+      message: "无效的token",
+    });
+  }
+  res.status(500);
+  res.send({
+    code: 500,
+    message: "未知的错误",
+  });
+});
 
 const setRoute = (path, handlerFunction) => {
   const handler = async (req, res) => {
@@ -38,8 +61,12 @@ const setRoute = (path, handlerFunction) => {
     const event = req.body;
     try {
       result = await handlerFunction(event, req, res)
+      // 封装响应
+      result = {
+        code: 200,
+        data: result,
+      };
     } catch (e) {
-      console.log('e', e)
       // 全局异常处理
       if (e instanceof ComError) {
         result = {
@@ -47,12 +74,14 @@ const setRoute = (path, handlerFunction) => {
           message: e.message,
           data: null,
         };
+        res.status(e.code)
       } else {
         result = {
           code: 500,
           data: null,
           message: "server error",
         };
+        res.status(500)
       }
     }
     res.send(result);

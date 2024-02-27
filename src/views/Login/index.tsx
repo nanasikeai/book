@@ -37,23 +37,22 @@ const Login = () => {
       Notify.show('请输入密码');
       return
     }
-    try {
-      if (type === 'register') {
-        // 注册
-        if (!formData.verify) {
-          Notify.show('请输入验证码')
-          return
-        }
-        if (formData.verify !== captcha) {
-          Notify.show('验证码错误')
-          return
-        }
-      } else {
-        // 登录
-        const { data } = await reqLogin(formData)
+    if (type === 'register') {
+      // 注册
+      if (!formData.verify) {
+        Notify.show('请输入验证码')
+        return
       }
-    } catch (error) {
-      Notify.show('系统错误')
+      if (formData.verify !== captcha) {
+        Notify.show('验证码错误')
+        return
+      }
+      const { data } = await reqRegister(formData)
+    } else {
+      // 登录
+      const { data } = await reqLogin(formData)
+      localStorage.setItem("token", data.token)
+      window.location.href = '/';
     }
   }
 

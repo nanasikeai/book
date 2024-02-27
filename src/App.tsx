@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 export default function App() {
   const location = useLocation() // 拿到 location 实例
   const { pathname } = location // 获取当前路径
-  const needNav = ['/', '/data', '/user'] // 需要底部导航栏的路径
+  const needNav = ['/', '/statistics', '/user'] // 需要底部导航栏的路径
   const [showNav, setShowNav] = useState(false) // 是否展示 Nav
 
   useEffect(() =>  {

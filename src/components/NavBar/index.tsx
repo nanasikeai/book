@@ -22,10 +22,10 @@ const NavBar = ({ showNav }: Props) => {
     <>
       {
         showNav ? (<Tabbar onChange={p => setPath(p as string)}>
-          <Tabbar.Item name='home' icon={<OrdersO />}>
+          <Tabbar.Item name='/' icon={<OrdersO />}>
             账单
           </Tabbar.Item>
-          <Tabbar.Item name='Statistics' icon={<BarChartO />}>
+          <Tabbar.Item name='statistics' icon={<BarChartO />}>
             统计
           </Tabbar.Item>
           <Tabbar.Item name='user' icon={<UserO />}>

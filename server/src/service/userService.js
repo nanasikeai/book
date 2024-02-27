@@ -3,6 +3,7 @@ const {
   NOT_FOUND_ERROR_CODE,
 } = require("../exception/errorCode");
 const ComError = require('../exception/index')
+const jwt = require("jsonwebtoken");
 
 /**
  * 用户注册
@@ -36,7 +37,17 @@ async function userLogin(username, password, req) {
     throw new ComError(NOT_FOUND_ERROR_CODE, "用户不存在或密码错误");
   }
   // 登录成功
-  return user;
+  const secureUser = {
+    id: user.id,
+    username: user.username,
+    avatar: user.avatar,
+  }
+  const secretKey = 'nana'
+  const tokenStr = 'Bearer ' + jwt.sign(secureUser, secretKey, {
+    expiresIn: '50s'
+  })
+  secureUser.token = tokenStr
+  return secureUser
 }
 
 module.exports = {

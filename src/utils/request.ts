@@ -26,7 +26,15 @@ request.interceptors.request.use(
 // 添加响应拦截器
 request.interceptors.response.use(
   (response) => {
-    return response.data
+    switch (response.data.code) {
+      // 后端业务逻辑处理成功
+      case 200:
+        return response.data;
+      default: {
+        const { message = '系统错误' } = response.data;
+        Notify.show(message)
+      }
+    }
   },
   (error) => {
     // 失败回调，处理http网络错误
