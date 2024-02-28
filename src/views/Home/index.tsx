@@ -1,9 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import s from './style.module.scss'
 import { ArrowDown } from '@react-vant/icons'
+import { List } from 'react-vant'
+import BillItem from '@/components/BillItem'
 
 const Home = () => {
+  const [list, setList] = useState<Array<object>>([
+    {
+      bills: [
+        {
+          amount: "25.00",
+          date: "1623390740000",
+          id: 911,
+          pay_type: 1,
+          remark: "",
+          type_id: 1,
+          type_name: "餐饮"
+        }
+      ],
+      date: '2021-06-11'
+    },
+    {
+      bills: [
+        {
+          amount: "25.00",
+          date: "1623390740000",
+          id: 911,
+          pay_type: 1,
+          remark: "",
+          type_id: 1,
+          type_name: "餐饮"
+        }
+      ],
+      date: '2021-06-11'
+    }
+  ])
+  const [finished, setFinished] = useState<boolean>(true)
+
+  const onLoad = async () => {
+    console.log(111)
+  }
+
   return <div className={s.home}>
     <div className={s.header}>
       <div className={s.dataWrap}>
@@ -18,6 +56,13 @@ const Home = () => {
           <span className={s.time}>2022-06</span>
         </div>
       </div>
+    </div>
+    <div className={s.content}>
+      <List finished={finished} onLoad={onLoad}>
+        {
+          list.map((item, index) => <BillItem bill={item} key={index}/>)
+        }
+      </List>
     </div>
   </div>
 }
