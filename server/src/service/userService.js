@@ -1,11 +1,11 @@
-const UserModel = require("../model/user");
+const UserModel = require('../model/user');
 const {
   NOT_FOUND_ERROR_CODE,
   REQUEST_PARAMS_ERROR_CODE
-} = require("../exception/errorCode");
+} = require('../exception/errorCode');
 const ComError = require('../exception/index')
-const jwt = require("jsonwebtoken");
-const { Op } = require("sequelize");
+const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 
 /**
  * 用户注册
@@ -60,7 +60,7 @@ async function userLogin(username, password, req) {
   }
   const secretKey = 'nana'
   const tokenStr = 'Bearer ' + jwt.sign(secureUser, secretKey, {
-    expiresIn: '50s'
+    expiresIn: 3600
   })
   secureUser.token = tokenStr
   return secureUser

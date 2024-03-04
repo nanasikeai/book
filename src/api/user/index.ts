@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import LoginData from "@/model/LoginData";
+import LoginData from "@/model/loginData";
 
 // 登录接口
 export const reqLogin = (data: LoginData) => {

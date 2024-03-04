@@ -11,6 +11,10 @@
         align-items: center;
       }
     }
+
+    .rv-card-body {
+      padding: 0;
+    }
   }
 
   .money {
@@ -25,7 +29,8 @@
     }
   }
 
-  .itemIcon {
-    font-size: 20px;
+  .itemTitle {
+    display: flex;
+    justify-content: space-between;
   }
 }

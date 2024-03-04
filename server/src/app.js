@@ -55,10 +55,10 @@ app.use((err, req, res, next) => {
   });
 });
 
-const setRoute = (path, handlerFunction) => {
+const setRoute = (path, handlerFunction, type = 'post') => {
   const handler = async (req, res) => {
     let result
-    const event = req.body;
+    const event = type === 'get' ? req.query : req.body
     try {
       result = await handlerFunction(event, req, res)
       // 封装响应
@@ -67,6 +67,7 @@ const setRoute = (path, handlerFunction) => {
         data: result,
       };
     } catch (e) {
+      console.log(e)
       // 全局异常处理
       if (e instanceof ComError) {
         result = {
@@ -84,11 +85,11 @@ const setRoute = (path, handlerFunction) => {
     }
     res.send(result);
   }
-  app.post(path, handler)
+  type === 'get' ? app.get(path, handler) : app.post(path, handler)
 }
 // 注册路由接口
 for (const route of routes) {
-  setRoute(route.path, route.handler)
+  setRoute(route.path, route.handler, route.type)
 }
 
 app.listen('3000', () => {

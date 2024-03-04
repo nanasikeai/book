@@ -7,7 +7,7 @@ import { Contact, Lock, ShieldO} from '@react-vant/icons'
 import Captcha from "react-captcha-code";
 import { Notify } from 'react-vant';
 import cx from 'classnames'
-import LoginData from '@/model/LoginData'
+import LoginData from '@/model/loginData'
 import { reqLogin, reqRegister } from "@/api/user";
 
 const Login = () => {
