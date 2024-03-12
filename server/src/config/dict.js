@@ -36,6 +36,10 @@ const dict = {
       id: 'renqing',
       name: '人情'
     },
+    {
+      id: 'qita',
+      name: '其他'
+    }
   ],
   income: [
     {
@@ -58,8 +62,6 @@ const dict = {
       id: 'tuikuang',
       name: '退款'
     },
-  ],
-  other: [
     {
       id: 'qita',
       name: '其他'

@@ -8,7 +8,7 @@ import { reqBillList } from '@/api/bill'
 import dayjs from 'dayjs'
 
 const Home = () => {
-  const typeRef = useRef<HTMLDivElement | null>(); // 账单类型 ref
+  const typeRef = useRef(null); // 账单类型 ref
   const [list, setList] = useState<Array<Bill>>([])
   const [finished, setFinished] = useState<boolean>(false)
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY-MM'))
@@ -31,6 +31,7 @@ const Home = () => {
 
   // 打开弹窗
   const toggle = () => {
+    // @ts-ignore 
     typeRef.current && typeRef.current.show()
   };
 
