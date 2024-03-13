@@ -3,12 +3,14 @@ import s from './style.module.scss'
 import { List } from 'react-vant'
 import BillItem from '@/components/BillItem'
 import PopupType from '@/components/PopupType'
+import PopupDate from '@/components/PopupDate'
 import Bill from '@/model/bill'
 import { reqBillList } from '@/api/bill'
 import dayjs from 'dayjs'
 
 const Home = () => {
   const typeRef = useRef(null); // 账单类型 ref
+  const dateRef = useRef(null); // 账单日期 ref
   const [list, setList] = useState<Array<Bill>>([])
   const [finished, setFinished] = useState<boolean>(false)
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY-MM'))
@@ -30,14 +32,23 @@ const Home = () => {
   }
 
   // 打开弹窗
-  const toggle = () => {
+  const toggleType = () => {
     // @ts-ignore 
     typeRef.current && typeRef.current.show()
   };
 
+  const toggleDate = () => {
+    // @ts-ignore 
+    dateRef.current && dateRef.current.show()
+  }
+
   // 筛选类型
-  const select = (item: string) => {
+  const selectType = (item: string) => {
     console.log(item)
+  }
+
+  const selectDate = (value: Date) => {
+    console.log(value)
   }
 
   return <div className={s.home}>
@@ -47,10 +58,10 @@ const Home = () => {
         <span className={s.income}>总收入：<b>¥ 712.00</b></span>
       </div>
       <div className={s.typeWrap}>
-        <div className={s.left} onClick={toggle}>
+        <div className={s.left} onClick={toggleType}>
           <span className={s.title}>全部类型</span>
         </div>
-        <div className={s.right}>
+        <div className={s.right} onClick={toggleDate}>
           <span className={s.time}>2022-06</span>
         </div>
       </div>
@@ -62,7 +73,8 @@ const Home = () => {
         }
       </List>
     </div>
-    <PopupType ref={typeRef} onSelect={select} />
+    <PopupType ref={typeRef} onSelectType={selectType} />
+    <PopupDate ref={dateRef} onSelectDate={selectDate}/>
   </div>
 }
 

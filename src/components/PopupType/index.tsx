@@ -12,7 +12,7 @@ interface Dict {
   income: DictItem,
 }
 interface Props {  
-  onSelect: (item: string) => void;  
+  onSelectType: (item: string) => void;  
 }
 interface Methods {  
   show: () => void;
@@ -48,7 +48,7 @@ const PopupType:ForwardRefRenderFunction<Methods, Props> = (props , ref) => {
     setActive(item.id)
     setShow(false)
     // 父组件传入的 onSelect，为了获取类型
-    props.onSelect(item.id)
+    props.onSelectType(item.id)
   };
 
   return <Popup
